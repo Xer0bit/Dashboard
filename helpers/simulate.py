@@ -1,4 +1,5 @@
 import pandas as pd
+from helpers.degen_score import calculate_degen_score
 
 def simulate_draftkings(data, num_simulations):
     results = []
@@ -15,6 +16,7 @@ def simulate_draftkings(data, num_simulations):
         
         simulation_df = pd.concat(simulation)
         if simulation_df['Salary'].sum() <= salary_cap:
+            simulation_df['Optimal'] = calculate_degen_score(simulation_df)
             results.append(simulation_df)
     
     return pd.concat(results).reset_index(drop=True)
@@ -34,6 +36,7 @@ def simulate_fanduel(data, num_simulations):
         
         simulation_df = pd.concat(simulation)
         if simulation_df['Salary'].sum() <= salary_cap:
+            simulation_df['Optimal'] = calculate_degen_score(simulation_df)
             results.append(simulation_df)
     
     return pd.concat(results).reset_index(drop=True)

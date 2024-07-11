@@ -1,3 +1,4 @@
+
 import pandas as pd
 
 def color_scale(series):
